@@ -6,13 +6,14 @@ enum ApplicationStatus: string
 {
     case Pending = 'pending';
     case Accepted = 'accepted';
+    case Approved = 'approved';
     case Rejected = 'rejected';
 
     public function label(): string
     {
         return match ($this) {
             self::Pending => 'Pending Review',
-            self::Accepted => 'Accepted',
+            self::Accepted, self::Approved => 'Approved',
             self::Rejected => 'Rejected',
         };
     }
@@ -21,7 +22,7 @@ enum ApplicationStatus: string
     {
         return match ($this) {
             self::Pending => 'amber',
-            self::Accepted => 'green',
+            self::Accepted, self::Approved => 'green',
             self::Rejected => 'red',
         };
     }
