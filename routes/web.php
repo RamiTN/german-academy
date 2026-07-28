@@ -30,11 +30,30 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::get('/teachers', fn() => view('admin.teachers.index'))->name('teachers.index');
     Route::get('/applications', fn() => view('admin.applications.index'))->name('applications.index');
     Route::get('/schedules', fn() => view('admin.schedules.index'))->name('schedules.index');
-    Route::get('/announcements', fn() => view('admin.announcements.index'))->name('announcements.index');
-    Route::get('/homework', fn() => view('admin.homework.index'))->name('homework.index');
-    Route::get('/quizzes', fn() => view('admin.quizzes.index'))->name('quizzes.index');
+    
+    // Announcements
+    Route::get('/announcements', [\App\Http\Controllers\AnnouncementController::class, 'adminIndex'])->name('announcements.index');
+    Route::get('/announcements/create', [\App\Http\Controllers\AnnouncementController::class, 'adminCreate'])->name('announcements.create');
+    Route::post('/announcements', [\App\Http\Controllers\AnnouncementController::class, 'adminStore'])->name('announcements.store');
+
+    // Homework
+    Route::get('/homework', [\App\Http\Controllers\HomeworkController::class, 'adminIndex'])->name('homework.index');
+    Route::get('/homework/create', [\App\Http\Controllers\HomeworkController::class, 'adminCreate'])->name('homework.create');
+    Route::post('/homework', [\App\Http\Controllers\HomeworkController::class, 'adminStore'])->name('homework.store');
+
+    // Quizzes
+    Route::get('/quizzes', [\App\Http\Controllers\QuizController::class, 'adminIndex'])->name('quizzes.index');
+    Route::get('/quizzes/create', [\App\Http\Controllers\QuizController::class, 'adminCreate'])->name('quizzes.create');
+    Route::post('/quizzes', [\App\Http\Controllers\QuizController::class, 'adminStore'])->name('quizzes.store');
+
+    // Tests
     Route::get('/tests', fn() => view('admin.tests.index'))->name('tests.index');
-    Route::get('/resources', fn() => view('admin.resources.index'))->name('resources.index');
+
+    // Resources
+    Route::get('/resources', [\App\Http\Controllers\ResourceController::class, 'adminIndex'])->name('resources.index');
+    Route::get('/resources/create', [\App\Http\Controllers\ResourceController::class, 'adminCreate'])->name('resources.create');
+    Route::post('/resources', [\App\Http\Controllers\ResourceController::class, 'adminStore'])->name('resources.store');
+
     Route::get('/settings', fn() => view('admin.settings.index'))->name('settings.index');
     Route::get('/logs', fn() => view('admin.logs.index'))->name('logs.index');
 });
@@ -47,20 +66,38 @@ Route::prefix('teacher')->middleware(['auth', 'role:teacher'])->name('teacher.')
     Route::get('/applications', [App\Http\Controllers\Teacher\ApplicationController::class, 'index'])->name('applications.index');
     Route::get('/applications/{application}/edit', [App\Http\Controllers\Teacher\ApplicationController::class, 'edit'])->name('applications.edit');
     Route::put('/applications/{application}', [App\Http\Controllers\Teacher\ApplicationController::class, 'update'])->name('applications.update');
-    Route::get('/homework', fn() => view('teacher.homework.index'))->name('homework.index');
-    Route::get('/quizzes', fn() => view('teacher.quizzes.index'))->name('quizzes.index');
+
+    // Homework
+    Route::get('/homework', [\App\Http\Controllers\HomeworkController::class, 'teacherIndex'])->name('homework.index');
+    Route::get('/homework/create', [\App\Http\Controllers\HomeworkController::class, 'teacherCreate'])->name('homework.create');
+    Route::post('/homework', [\App\Http\Controllers\HomeworkController::class, 'teacherStore'])->name('homework.store');
+
+    // Quizzes
+    Route::get('/quizzes', [\App\Http\Controllers\QuizController::class, 'teacherIndex'])->name('quizzes.index');
+    Route::get('/quizzes/create', [\App\Http\Controllers\QuizController::class, 'teacherCreate'])->name('quizzes.create');
+    Route::post('/quizzes', [\App\Http\Controllers\QuizController::class, 'teacherStore'])->name('quizzes.store');
+
+    // Tests
     Route::get('/tests', fn() => view('teacher.tests.index'))->name('tests.index');
-    Route::get('/announcements', fn() => view('teacher.announcements.index'))->name('announcements.index');
-    Route::get('/resources', fn() => view('teacher.resources.index'))->name('resources.index');
+
+    // Announcements
+    Route::get('/announcements', [\App\Http\Controllers\AnnouncementController::class, 'teacherIndex'])->name('announcements.index');
+    Route::get('/announcements/create', [\App\Http\Controllers\AnnouncementController::class, 'teacherCreate'])->name('announcements.create');
+    Route::post('/announcements', [\App\Http\Controllers\AnnouncementController::class, 'teacherStore'])->name('announcements.store');
+
+    // Resources
+    Route::get('/resources', [\App\Http\Controllers\ResourceController::class, 'teacherIndex'])->name('resources.index');
+    Route::get('/resources/create', [\App\Http\Controllers\ResourceController::class, 'teacherCreate'])->name('resources.create');
+    Route::post('/resources', [\App\Http\Controllers\ResourceController::class, 'teacherStore'])->name('resources.store');
 });
 
 // Student Routes
 Route::prefix('student')->middleware(['auth', 'role:student'])->name('student.')->group(function () {
     Route::get('/', [StudentDashboardController::class, 'index'])->name('dashboard');
-    Route::get('/homework', fn() => view('student.homework.index'))->name('homework.index');
-    Route::get('/quizzes', fn() => view('student.quizzes.index'))->name('quizzes.index');
+    Route::get('/homework', [\App\Http\Controllers\HomeworkController::class, 'studentIndex'])->name('homework.index');
+    Route::get('/quizzes', [\App\Http\Controllers\QuizController::class, 'studentIndex'])->name('quizzes.index');
     Route::get('/tests', fn() => view('student.tests.index'))->name('tests.index');
-    Route::get('/resources', fn() => view('student.resources.index'))->name('resources.index');
+    Route::get('/resources', [\App\Http\Controllers\ResourceController::class, 'studentIndex'])->name('resources.index');
     Route::get('/grades', fn() => view('student.grades.index'))->name('grades.index');
     Route::get('/attendance', fn() => view('student.attendance.index'))->name('attendance.index');
 });
