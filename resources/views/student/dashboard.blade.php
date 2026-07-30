@@ -36,10 +36,11 @@
                         <div>
                             <x-ui.live-indicator class="mb-3" />
                             <h3 class="text-xl font-bold text-gray-900 mb-1">{{ $item['data']->title }}</h3>
-                            <p class="text-gray-500">{{ __('Started') }} {{ $item['data']->started_at->diffForHumans() }}</p>
+                            <p class="text-gray-500">{{ __('Started') }} {{ $item['data']->started_at ? $item['data']->started_at->diffForHumans() : __('recently') }}</p>
                         </div>
-                        <a href="{{ $item['data']->meet_link ?? '#' }}" target="_blank" class="btn bg-red-600 text-white hover:bg-red-700 px-6 py-3 shadow-sm font-bold">
-                            {{ __('Join Lesson') }} &rarr;
+                        <a href="{{ route('meetings.join', $item['data']) }}" target="_blank" class="btn bg-red-600 text-white hover:bg-red-700 px-6 py-3 shadow-sm font-bold inline-flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                            {{ __('Join Live Meet') }} &rarr;
                         </a>
                     </div>
                 </div>
@@ -58,6 +59,11 @@
                             {{ $item['data']->scheduled_at->format('H:i') }} ({{ $item['data']->scheduled_at->diffForHumans() }})
                         </p>
                     </div>
+                    @if($item['data']->meet_link)
+                        <a href="{{ route('meetings.join', $item['data']) }}" target="_blank" class="btn bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 px-4 font-bold shrink-0">
+                            {{ __('Join Meet') }} &rarr;
+                        </a>
+                    @endif
                 </div>
 
             @elseif($item['type'] === 'homework')

@@ -28,8 +28,13 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/students', fn() => view('admin.students.index'))->name('students.index');
     Route::get('/teachers', fn() => view('admin.teachers.index'))->name('teachers.index');
-    Route::get('/applications', fn() => view('admin.applications.index'))->name('applications.index');
-    Route::get('/schedules', fn() => view('admin.schedules.index'))->name('schedules.index');
+    
+    // Applications
+    Route::get('/applications', [\App\Http\Controllers\Admin\ApplicationController::class, 'index'])->name('applications.index');
+    Route::get('/applications/{application}/edit', [\App\Http\Controllers\Admin\ApplicationController::class, 'edit'])->name('applications.edit');
+    Route::put('/applications/{application}', [\App\Http\Controllers\Admin\ApplicationController::class, 'update'])->name('applications.update');
+
+    Route::get('/schedules', [\App\Http\Controllers\MeetingController::class, 'index'])->name('schedules.index');
     
     // Announcements
     Route::get('/announcements', [\App\Http\Controllers\AnnouncementController::class, 'adminIndex'])->name('announcements.index');
@@ -61,6 +66,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
 // Teacher Routes
 Route::prefix('teacher')->middleware(['auth', 'role:teacher'])->name('teacher.')->group(function () {
     Route::get('/', [TeacherDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/classrooms', [\App\Http\Controllers\MeetingController::class, 'index'])->name('classrooms.index');
     Route::get('/students', fn() => view('teacher.students.index'))->name('students.index');
     Route::delete('/students/{student}', [App\Http\Controllers\Teacher\StudentController::class, 'destroy'])->name('students.destroy');
     Route::get('/applications', [App\Http\Controllers\Teacher\ApplicationController::class, 'index'])->name('applications.index');
@@ -102,7 +108,14 @@ Route::prefix('student')->middleware(['auth', 'role:student'])->name('student.')
     Route::get('/attendance', fn() => view('student.attendance.index'))->name('attendance.index');
 });
 
+// Shared Authenticated Routes for Meetings & Profile
 Route::middleware('auth')->group(function () {
+    Route::get('/meetings/create', [\App\Http\Controllers\MeetingController::class, 'create'])->name('meetings.create');
+    Route::post('/meetings', [\App\Http\Controllers\MeetingController::class, 'store'])->name('meetings.store');
+    Route::get('/meetings/{meeting}/edit', [\App\Http\Controllers\MeetingController::class, 'edit'])->name('meetings.edit');
+    Route::put('/meetings/{meeting}', [\App\Http\Controllers\MeetingController::class, 'update'])->name('meetings.update');
+    Route::get('/meetings/{meeting}/join', [\App\Http\Controllers\MeetingController::class, 'join'])->name('meetings.join');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -117,4 +130,5 @@ Route::get('/lang/{locale}', function (string $locale) {
     }
     return redirect()->back();
 })->name('lang.switch');
+
 
