@@ -68,6 +68,16 @@ Route::prefix('teacher')->middleware(['auth', 'role:teacher'])->name('teacher.')
     Route::get('/', [TeacherDashboardController::class, 'index'])->name('dashboard');
     Route::get('/classrooms', [\App\Http\Controllers\MeetingController::class, 'index'])->name('classrooms.index');
     Route::get('/students', fn() => view('teacher.students.index'))->name('students.index');
+
+    // Class Groups
+    Route::get('/class-groups', [\App\Http\Controllers\Teacher\ClassGroupController::class, 'index'])->name('class-groups.index');
+    Route::get('/class-groups/create', [\App\Http\Controllers\Teacher\ClassGroupController::class, 'create'])->name('class-groups.create');
+    Route::post('/class-groups', [\App\Http\Controllers\Teacher\ClassGroupController::class, 'store'])->name('class-groups.store');
+    Route::get('/class-groups/{classGroup}/edit', [\App\Http\Controllers\Teacher\ClassGroupController::class, 'edit'])->name('class-groups.edit');
+    Route::put('/class-groups/{classGroup}', [\App\Http\Controllers\Teacher\ClassGroupController::class, 'update'])->name('class-groups.update');
+    Route::delete('/class-groups/{classGroup}', [\App\Http\Controllers\Teacher\ClassGroupController::class, 'destroy'])->name('class-groups.destroy');
+    Route::post('/class-groups/{classGroup}/students', [\App\Http\Controllers\Teacher\ClassGroupController::class, 'addStudent'])->name('class-groups.add-student');
+    Route::delete('/class-groups/{classGroup}/students/{student}', [\App\Http\Controllers\Teacher\ClassGroupController::class, 'removeStudent'])->name('class-groups.remove-student');
     Route::delete('/students/{student}', [App\Http\Controllers\Teacher\StudentController::class, 'destroy'])->name('students.destroy');
     Route::get('/applications', [App\Http\Controllers\Teacher\ApplicationController::class, 'index'])->name('applications.index');
     Route::get('/applications/{application}/edit', [App\Http\Controllers\Teacher\ApplicationController::class, 'edit'])->name('applications.edit');
@@ -100,6 +110,7 @@ Route::prefix('teacher')->middleware(['auth', 'role:teacher'])->name('teacher.')
 // Student Routes
 Route::prefix('student')->middleware(['auth', 'role:student'])->name('student.')->group(function () {
     Route::get('/', [StudentDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/meetings', [\App\Http\Controllers\Student\MeetingController::class, 'index'])->name('meetings.index');
     Route::get('/homework', [\App\Http\Controllers\HomeworkController::class, 'studentIndex'])->name('homework.index');
     Route::get('/quizzes', [\App\Http\Controllers\QuizController::class, 'studentIndex'])->name('quizzes.index');
     Route::get('/tests', fn() => view('student.tests.index'))->name('tests.index');
