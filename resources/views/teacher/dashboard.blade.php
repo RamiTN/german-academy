@@ -67,7 +67,7 @@
                 @forelse($recentSubmissions as $submission)
                     <div class="flex items-center justify-between p-4 rounded-xl border border-gray-100 hover:border-accent hover:shadow-sm transition-all">
                         <div class="flex items-center gap-3">
-                            <img src="{{ $submission->student->user->avatar_url }}" alt="" class="w-10 h-10 rounded-full">
+                            <img src="{{ $submission->student->user->avatar_url }}" alt="{{ $submission->student->user->name }}" class="w-10 h-10 rounded-full">
                             <div>
                                 <p class="font-medium text-gray-900">{{ $submission->student->user->name }}</p>
                                 <p class="text-sm text-gray-500 truncate max-w-[200px]">{{ $submission->homework->title }}</p>

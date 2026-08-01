@@ -1,4 +1,40 @@
-<x-public-layout>
+<x-public-layout
+    :seo-title="$seoTitle ?? null"
+    :seo-description="$seoDescription ?? null"
+    :seo-canonical="$seoCanonical ?? null"
+    :seo-image="$seoImage ?? null"
+    :seo-robots="$seoRobots ?? null"
+>
+    @push('head')
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How German Academy Works",
+        "description": "A simple, structured, and effective roadmap to help you master the German language from your first live class to certified fluency.",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "position": 1,
+                "name": "Apply & Placement",
+                "text": "Sign up and submit your application detailing your current German knowledge, learning goals, and schedule preferences."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 2,
+                "name": "Assessment & Group Matching",
+                "text": "Our teachers review your application and match you to a class group aligned with your skill level and schedule."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 3,
+                "name": "Live Interactive Learning",
+                "text": "Attend live online classes, work on structured assignments, submit homework, take quizzes, and earn certificates."
+            }
+        ]
+    }
+    </script>
+    @endpush
     <!-- Hero Section -->
     <section class="bg-dark text-white pt-20 pb-24 relative overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-accent via-dark to-dark"></div>

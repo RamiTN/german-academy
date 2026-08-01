@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use Illuminate\Support\Str;
+
 class Teacher extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
+        'slug',
         'bio',
         'experience',
         'certificates',
@@ -20,6 +23,30 @@ class Teacher extends Model
         'profile_image',
         'specializations',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function (Teacher $teacher) {
+            if (empty($teacher->slug)) {
+                $baseName = $teacher->user ? $teacher->user->name : 'teacher';
+                $slug = Str::slug($baseName);
+                $originalSlug = $slug;
+                $count = 1;
+
+                while (static::where('slug', $slug)->exists()) {
+                    $slug = "{$originalSlug}-{$count}";
+                    $count++;
+                }
+
+                $teacher->slug = $slug;
+            }
+        });
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 
     protected function casts(): array
     {

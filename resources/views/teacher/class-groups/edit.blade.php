@@ -161,7 +161,7 @@
                                         <tr class="hover:bg-gray-50 transition-colors">
                                             <td class="px-4 py-3">
                                                 <div class="flex items-center gap-3">
-                                                    <img src="{{ $student->user->avatar_url }}" alt="" class="w-8 h-8 rounded-full object-cover">
+                                                    <img src="{{ $student->user->avatar_url }}" alt="{{ $student->user->name }}" class="w-8 h-8 rounded-full object-cover">
                                                     <span class="font-medium text-gray-900">{{ $student->user->name }}</span>
                                                 </div>
                                             </td>

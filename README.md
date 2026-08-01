@@ -54,6 +54,18 @@ In order to ensure that the Laravel community is welcoming to all, please review
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
+## Production Deployment & Caching (InfinityFree)
+
+Before uploading files via FTP to InfinityFree hosting, execute the following artisan caching commands locally to optimize performance:
+
+```bash
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+> **Note:** Whenever you update routes, configuration files, or Blade views, rerun these commands locally before uploading the cached files in `bootstrap/cache/` and `storage/framework/views/`.
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

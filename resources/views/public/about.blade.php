@@ -1,4 +1,10 @@
-<x-public-layout>
+<x-public-layout
+    :seo-title="$seoTitle ?? null"
+    :seo-description="$seoDescription ?? null"
+    :seo-canonical="$seoCanonical ?? null"
+    :seo-image="$seoImage ?? null"
+    :seo-robots="$seoRobots ?? null"
+>
     <div class="bg-white py-16 sm:py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
@@ -54,7 +60,7 @@
 
                 <div class="relative">
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden bg-gray-100 relative z-10 shadow-xl">
-                        <img src="{{ asset('images/teacher.png') }}" alt="Our Teacher"
+                        <img src="{{ asset('images/teacher.png') }}" alt="German Academy language teacher"
                             class="absolute inset-0 w-full h-full object-cover">
                         <div
                             class="absolute inset-0 bg-gradient-to-tr from-accent/20 to-transparent opacity-50 mix-blend-multiply pointer-events-none">

@@ -10,7 +10,10 @@ class ContactController extends Controller
 {
     public function index()
     {
-        return view('public.contact');
+        return view('public.contact', [
+            'seoTitle' => 'Contact Us — German Academy',
+            'seoDescription' => 'Get in touch with German Academy. Ask about German language courses, schedules, pricing, or get help determining your current level.',
+        ]);
     }
 
     public function store(Request $request)

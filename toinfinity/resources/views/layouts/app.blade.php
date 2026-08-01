@@ -64,6 +64,7 @@
                 <x-ui.nav-item route="admin.logs.index" icon="server" :label="__('Activity Logs')" />
             @elseif(auth()->user()->isTeacher())
                 <x-ui.nav-item route="teacher.dashboard" icon="squares-2x2" :label="__('Dashboard')" />
+                <x-ui.nav-item route="teacher.class-groups.index" icon="user-group" :label="__('Class Groups')" />
                 <x-ui.nav-item route="teacher.classrooms.index" icon="video-camera" :label="__('Class Rooms')" />
                 <x-ui.nav-item route="teacher.students.index" icon="users" :label="__('My Students')" />
                 <x-ui.nav-item route="teacher.applications.index" icon="document-text" :label="__('Applications')" />
@@ -74,6 +75,7 @@
                 <x-ui.nav-item route="teacher.resources.index" icon="folder" :label="__('Resources')" />
             @else
                 <x-ui.nav-item route="student.dashboard" icon="home" :label="__('My Feed')" />
+                <x-ui.nav-item route="student.meetings.index" icon="video-camera" :label="__('My Meetings')" />
                 <x-ui.nav-item route="student.homework.index" icon="book-open" :label="__('Homework')" />
                 <x-ui.nav-item route="student.quizzes.index" icon="question-mark-circle" :label="__('Quizzes')" />
                 <x-ui.nav-item route="student.tests.index" icon="clipboard-document-check" :label="__('Tests')" />

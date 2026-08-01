@@ -113,7 +113,7 @@
                         </div>
                     @endif
                     <div class="flex gap-4">
-                        <img src="{{ $item['data']->creator->avatar_url }}" alt="" class="w-10 h-10 rounded-full mt-1">
+                        <img src="{{ $item['data']->creator->avatar_url }}" alt="{{ $item['data']->creator->name ?? 'User' }}" class="w-10 h-10 rounded-full mt-1">
                         <div>
                             <div class="flex items-baseline gap-2 mb-1">
                                 <span class="font-bold text-gray-900">{{ $item['data']->creator->name }}</span>

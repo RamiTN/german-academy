@@ -36,7 +36,7 @@
         <!-- Logo -->
         <div class="h-16 flex items-center px-6 border-b border-gray-200">
             <a href="{{ route('home') }}" class="flex items-center gap-2">
-                <img src="{{ asset('images/5cbf0526-b5b8-447b-b43f-0b04d9925d8b.png') }}" alt="Logo" class="w-8 h-8 object-contain">
+                <img src="{{ asset('images/5cbf0526-b5b8-447b-b43f-0b04d9925d8b.png') }}" alt="German Academy logo" class="w-8 h-8 object-contain">
                 <span class="font-bold text-lg text-gray-900">{{ __('German Academy') }}</span>
             </a>
         </div>

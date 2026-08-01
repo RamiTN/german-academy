@@ -8,14 +8,39 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use Illuminate\Support\Str;
+
 class ClassGroup extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name', 'german_level', 'teacher_id',
+        'name', 'slug', 'german_level', 'teacher_id',
         'description', 'max_students', 'is_active',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function (ClassGroup $classGroup) {
+            if (empty($classGroup->slug)) {
+                $slug = Str::slug($classGroup->name);
+                $originalSlug = $slug;
+                $count = 1;
+
+                while (static::where('slug', $slug)->exists()) {
+                    $slug = "{$originalSlug}-{$count}";
+                    $count++;
+                }
+
+                $classGroup->slug = $slug;
+            }
+        });
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 
     protected function casts(): array
     {

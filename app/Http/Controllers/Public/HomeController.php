@@ -20,6 +20,9 @@ class HomeController extends Controller
             }
         }
 
-        return view('public.home');
+        return view('public.home', [
+            'seoTitle' => 'German Academy — Learn German Online A1 to C2',
+            'seoDescription' => 'Master the German language with live interactive online lessons, structured CEFR curriculum, and certified teachers. Enroll in A1–C2 courses at German Academy.',
+        ]);
     }
 }

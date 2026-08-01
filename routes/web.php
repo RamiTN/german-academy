@@ -15,9 +15,14 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/apply', [ApplyController::class, 'index'])->name('apply')->middleware('auth');
 Route::post('/apply', [ApplyController::class, 'store'])->name('apply.store')->middleware('auth');
-Route::get('/how-it-works', fn() => view('public.how-it-works'))->name('how-it-works');
+Route::get('/how-it-works', fn() => view('public.how-it-works', [
+    'seoTitle' => 'How It Works — German Academy',
+    'seoDescription' => 'Learn how German Academy works: apply for placement, get matched to a group, and start live interactive German lessons with structured assessments.',
+]))->name('how-it-works');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
 
 Route::get('/dashboard', function () {
     return redirect()->route('home'); // Redirects to proper dashboard based on role

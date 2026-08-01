@@ -1,4 +1,10 @@
-<x-public-layout>
+<x-public-layout
+    :seo-title="$seoTitle ?? null"
+    :seo-description="$seoDescription ?? null"
+    :seo-canonical="$seoCanonical ?? null"
+    :seo-image="$seoImage ?? null"
+    :seo-robots="$seoRobots ?? null"
+>
     <div class="bg-[#FAFAFA] py-16 sm:py-24 min-h-[calc(100vh-64px)]">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">

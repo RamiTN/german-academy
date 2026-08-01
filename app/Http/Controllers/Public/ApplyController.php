@@ -10,7 +10,11 @@ class ApplyController extends Controller
 {
     public function index()
     {
-        return view('public.apply');
+        return view('public.apply', [
+            'seoTitle' => 'Apply for German Classes — German Academy',
+            'seoDescription' => 'Submit your application to join upcoming German language classes at German Academy. Limited spaces available for A1–C2 levels.',
+            'seoRobots' => 'noindex, nofollow',
+        ]);
     }
 
     public function store(Request $request)

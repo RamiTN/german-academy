@@ -1,4 +1,23 @@
-<x-public-layout>
+<x-public-layout
+    :seo-title="$seoTitle ?? null"
+    :seo-description="$seoDescription ?? null"
+    :seo-canonical="$seoCanonical ?? null"
+    :seo-image="$seoImage ?? null"
+    :seo-robots="$seoRobots ?? null"
+>
+    @push('head')
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "German Academy",
+        "url": "{{ route('home') }}",
+        "logo": "{{ asset('images/5cbf0526-b5b8-447b-b43f-0b04d9925d8b.png') }}",
+        "description": "Educational platform for learning German online from A1 to C2 with live interactive lessons and certified instructors.",
+        "sameAs": []
+    }
+    </script>
+    @endpush
     <!-- Hero Section -->
     <section class="bg-dark text-white pt-24 pb-32 overflow-hidden relative">
         <div class="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-accent via-dark to-dark"></div>

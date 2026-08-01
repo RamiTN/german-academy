@@ -6,7 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ __('German Academy') }}</title>
+    {{-- SEO: Title --}}
+    <title>{{ $seoTitle ?? 'German Academy — Learn German Online A1 to C2' }}</title>
+
+    {{-- SEO: Meta Description --}}
+    @if($seoDescription ?? false)
+    <meta name="description" content="{{ $seoDescription }}">
+    @endif
+
+    {{-- SEO: Canonical URL --}}
+    <link rel="canonical" href="{{ $seoCanonical ?? url()->current() }}">
+
+    {{-- SEO: Robots --}}
+    <meta name="robots" content="{{ $seoRobots ?? 'index, follow' }}">
+
+    {{-- SEO: Open Graph --}}
+    <meta property="og:title" content="{{ $seoTitle ?? 'German Academy — Learn German Online A1 to C2' }}">
+    @if($seoDescription ?? false)
+    <meta property="og:description" content="{{ $seoDescription }}">
+    @endif
+    <meta property="og:image" content="{{ $seoImage ?? asset('images/og-default.jpg') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ $seoCanonical ?? url()->current() }}">
+    <meta property="og:site_name" content="German Academy">
+
+    {{-- SEO: Twitter Card --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $seoTitle ?? 'German Academy — Learn German Online A1 to C2' }}">
+    @if($seoDescription ?? false)
+    <meta name="twitter:description" content="{{ $seoDescription }}">
+    @endif
+    <meta name="twitter:image" content="{{ $seoImage ?? asset('images/og-default.jpg') }}">
+
     <link rel="icon" type="image/png" href="{{ asset('images/5cbf0526-b5b8-447b-b43f-0b04d9925d8b.png') }}">
 
     <!-- Fonts -->
@@ -25,6 +56,9 @@
         .btn-primary:hover { background-color: #dc2626 !important; color: #D4A843 !important; }
         [dir="rtl"] body { font-family: 'Noto Sans Arabic', 'Inter', sans-serif; }
     </style>
+
+    {{-- Per-page head content (JSON-LD, extra meta, etc.) --}}
+    @stack('head')
 </head>
 
 <body class="font-sans text-gray-900 antialiased flex flex-col min-h-screen">
@@ -36,7 +70,7 @@
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
                     <a href="{{ route('home') }}" class="flex items-center gap-3 group transition-transform duration-200 hover:scale-[1.02]">
-                        <img src="{{ asset('images/5cbf0526-b5b8-447b-b43f-0b04d9925d8b.png') }}" alt="Logo" class="w-10 h-10 object-contain drop-shadow-xs">
+                        <img src="{{ asset('images/5cbf0526-b5b8-447b-b43f-0b04d9925d8b.png') }}" alt="German Academy logo" class="w-10 h-10 object-contain drop-shadow-xs">
                         <span class="font-bold text-xl tracking-tight text-gray-900 group-hover:text-red-600 transition-colors">{{ __('German Academy') }}</span>
                     </a>
                 </div>
@@ -121,7 +155,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
             <div class="col-span-1 md:col-span-2">
                 <div class="flex items-center gap-2 mb-4">
-                    <img src="{{ asset('images/5cbf0526-b5b8-447b-b43f-0b04d9925d8b.png') }}" alt="Logo" class="w-10 h-10 object-contain">
+                    <img src="{{ asset('images/5cbf0526-b5b8-447b-b43f-0b04d9925d8b.png') }}" alt="German Academy logo" class="w-10 h-10 object-contain">
                     <span class="font-bold text-xl">{{ __('German Academy') }}</span>
                 </div>
                 <p class="text-gray-400 text-sm max-w-md">
