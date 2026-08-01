@@ -6,17 +6,15 @@
     :seo-robots="$seoRobots ?? null"
 >
     @push('head')
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "EducationalOrganization",
-        "name": "German Academy",
-        "url": "{{ route('home') }}",
-        "logo": "{{ asset('images/5cbf0526-b5b8-447b-b43f-0b04d9925d8b.png') }}",
-        "description": "Educational platform for learning German online from A1 to C2 with live interactive lessons and certified instructors.",
-        "sameAs": []
-    }
-    </script>
+    <script type="application/ld+json">{!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'EducationalOrganization',
+        'name' => 'German Academy',
+        'url' => route('home'),
+        'logo' => asset('images/5cbf0526-b5b8-447b-b43f-0b04d9925d8b.png'),
+        'description' => 'Educational platform for learning German online from A1 to C2 with live interactive lessons and certified instructors.',
+        'sameAs' => [],
+    ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
     @endpush
     <!-- Hero Section -->
     <section class="bg-dark text-white pt-24 pb-32 overflow-hidden relative">

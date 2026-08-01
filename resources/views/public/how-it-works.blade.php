@@ -6,6 +6,7 @@
     :seo-robots="$seoRobots ?? null"
 >
     @push('head')
+    @verbatim
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -34,6 +35,7 @@
         ]
     }
     </script>
+    @endverbatim
     @endpush
     <!-- Hero Section -->
     <section class="bg-dark text-white pt-20 pb-24 relative overflow-hidden">
